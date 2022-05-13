@@ -1,0 +1,30 @@
+.cartBtn {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.cartBtn img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+}
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(40%, -40%);
+  background: var(--secondary75);
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  color: var(--neutral0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
