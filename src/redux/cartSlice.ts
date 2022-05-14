@@ -6,6 +6,7 @@ import { getProduct } from "./../utils/product";
 import { useDispatch } from "react-redux";
 import { useAppDispatch } from "./hooks";
 import { act } from "react-dom/test-utils";
+import { useState } from "react";
 
 export type Cart = {
   product: Product;
@@ -19,7 +20,7 @@ export type Cart = {
 
 type cartState = {
   cart: Cart[];
-  count: number;
+  // count: number;
   error: string;
   loading: boolean;
   data: Product[];
@@ -28,7 +29,7 @@ type cartState = {
 
 const initialState: cartState = {
   cart: [],
-  count: 1,
+  // count: 1,
   error: "",
   loading: false,
   data: [],
@@ -66,52 +67,14 @@ export const cartSlice = createSlice({
 
         state.cart = newCart;
       } else {
-        const newCart = [state.cart];
         const index = action.payload.id;
-
-        // newCart[index].count += 1;
-        // state.cart = newCart;
-        const arrOfIndex = newCart[0].map((a) => a.product_id);
-        console.log(arrOfIndex);
+        const arrOfIndex = newCart.map((a) => a.product_id);
         const actualIndex = arrOfIndex.indexOf(index);
+        let currentProduct = current(newCart[actualIndex]);
 
-        console.log(arrOfIndex.indexOf(index));
-
-        // console.log(newCart.map((a) => a.product_id));
-        // const productId = newCart.map((a) => a.product_id);
-
-        // newCart[0].indexOf(index);
-        const increment = newCart[0].map((a) => a.count + 1);
-
-        console.log(newCart[0].map((a) => a));
+        let increment = currentProduct.count + 1;
+        state.cart[actualIndex].count = increment;
       }
-
-      // const checker = checkItem(product).find((item, index) => {
-      //   if (product.id === item.id) {
-      //     actualIndex = index;
-      //     return true;
-      //   }
-      //   return false;
-      // });
-      // if (checker) {
-      //   newCart.push({
-      //     product: action.payload,
-      //     product_id: action.payload.id,
-      //     count: 1,
-      //     img: action.payload.image,
-      //     alias: action.payload.alias,
-      //   });
-
-      //   state.cart = newCart;
-      // }
-      // else {
-      //   // const dispatch = useAppDispatch();
-      //   // dispatch(increment(action.payload.count));
-      //   console.log(checker);
-
-      //   console.log("kldkasjdlsajkh");
-      // }
-      // state.cart.map((item) => console.log(item.product_id));
     },
     increment: (state, action: PayloadAction<number>) => {
       const newCart = [...state.cart];
@@ -123,8 +86,10 @@ export const cartSlice = createSlice({
     decrement: (state, action: PayloadAction<number>) => {
       const newCart = [...state.cart];
       const index = action.payload;
+      if (newCart[index].count > 0) {
+        newCart[index].count -= 1;
+      }
 
-      newCart[index].count -= 1;
       state.cart = newCart;
     },
     removeItem: (state, action: PayloadAction<number>) => {
