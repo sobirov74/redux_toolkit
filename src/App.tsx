@@ -12,8 +12,8 @@ const App = () => {
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/product" element={<Product />} />
+          <Route path='/' element={<MainPage />} />
+          <Route path='/product/:alias' element={<Product />} />
         </Routes>
       </BrowserRouter>
     </Provider>

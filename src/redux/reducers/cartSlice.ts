@@ -3,6 +3,7 @@
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import getProducts from "../../utils/getProducts";
 import { Product } from "../../utils/types";
+import { useAppSelector } from "../hooks";
 
 export type Cart = {
   product: Product;
@@ -34,7 +35,7 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<Product>) => {
       const newCart = [...state.cart];
-      console.log(action.payload);
+      console.log(state.cart);
 
       state.cart = newCart;
       const indexes = state.cart.map((a) => a.product_id);
@@ -82,44 +83,7 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter((_, index) => index !== action.payload);
     },
   },
-  extraReducers: {
-    [getProducts.fulfilled.type]: (state, action: PayloadAction<Product>) => {
-      state.loading = false;
-      state.data = action.payload.data;
-    },
-    [getProducts.pending.type]: (state: cartState) => {
-      state.loading = true;
-    },
-    [getProducts.rejected.type]: (
-      state: cartState,
-      action: PayloadAction<string>
-    ) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-  },
 });
-// export const getProductssReducer = createSlice({
-//   name: "getProducts",
-//   initialState,
-//   reducers: {
-//     [getProducts.fulfilled.type]: (state, action: PayloadAction<Product>) => {
-//       state.loading = false;
-//       state.data = action.payload.data;
-//       console.log(action.payload.data);
-//     },
-//     [getProducts.pending.type]: (state: cartState) => {
-//       state.loading = true;
-//     },
-//     [getProducts.rejected.type]: (
-//       state: cartState,
-//       action: PayloadAction<string>
-//     ) => {
-//       state.loading = false;
-//       state.error = action.payload;
-//     },
-//   },
-// });
 
 export default cartSlice.reducer;
 

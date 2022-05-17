@@ -4,6 +4,6 @@ export interface Product {
   image: string[];
   is_new: boolean;
   alias: string;
-  count: number; //added
+  count: number;
   id: number;
 }

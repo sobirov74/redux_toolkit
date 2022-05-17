@@ -19,7 +19,7 @@ import { url } from "./url";
 
 const getProduct = createAsyncThunk(
   "products/fetchAll",
-  async (alias: any, thunkAPI) => {
+  async (alias: string | undefined, thunkAPI) => {
     try {
       const resp = await axios.get(`${url}/${alias}`);
       return resp.data;

@@ -1,8 +1,5 @@
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import getProduct from "../../utils/product";
-// import Product from "../../pages/product/[id]";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "../../utils/types";
-import { useAppDispatch } from "../hooks";
 
 export type Cart = {
   product: Product;
@@ -17,6 +14,7 @@ type cartState = {
   loading: boolean;
   id: number;
   alias: string;
+  // img: string[];
 };
 
 const initialState: cartState = {
@@ -25,63 +23,35 @@ const initialState: cartState = {
   loading: false,
   id: 0,
   alias: "",
+  // img: [],
 };
 
 const getProductId = createSlice({
   name: "product",
   initialState,
   reducers: {
-    // getProductById: (state, action: PayloadAction<Product>) => {
-    //   const newCart = [...state.product];
-    //   console.log(action.payload);
-
-    //   newCart.push({
-    //     product: action.payload,
-    //     product_id: action.payload.id,
-    //     img: action.payload.image,
-    //     alias: action.payload.name_ru,
-    //   });
-    //   state.product = newCart;
-    //   console.log(newCart);
-
-    //   //   const indexes = state.cart.map((a) => a.product_id);
-    //   //   const actualIndex = indexes.indexOf(action.payload.id);
-    // },
-    getAlias: (state, action: PayloadAction<string>) => {
-      const alias = action.payload;
-      state.alias = action.payload;
-    },
-
-    // pushElement: (state, action: PayloadAction<string>) => {
-
-    // },
-  },
-  extraReducers: {
-    [getProduct.fulfilled.type]: (state, action: PayloadAction<Product>) => {
-      state.loading = false;
+    getProductByAlias: (state, action: PayloadAction<Product>) => {
       const newCart = [...state.item];
+      // console.log(action.payload);
 
       newCart.push({
-        product: action.payload.data,
-        product_id: action.payload.data.id,
-        img: action.payload.data.image,
-        alias: action.payload.data.name_ru,
+        product: action.payload,
+        product_id: action.payload.id,
+        img: action.payload.image,
+        alias: action.payload.name_ru,
       });
       state.item = newCart;
+      console.log(newCart);
+
+      //   const indexes = state.cart.map((a) => a.product_id);
+      //   const actualIndex = indexes.indexOf(action.payload.id);
     },
-    [getProduct.pending.type]: (state: cartState) => {
-      state.loading = true;
-    },
-    [getProduct.rejected.type]: (
-      state: cartState,
-      action: PayloadAction<string>
-    ) => {
-      state.loading = false;
-      state.error = action.payload;
+    getAlias: (state, action: PayloadAction<string>) => {
+      state.alias = action.payload;
     },
   },
 });
 
-export const { getAlias } = getProductId.actions;
+export const { getAlias, getProductByAlias } = getProductId.actions;
 
 export default getProductId.reducer;
