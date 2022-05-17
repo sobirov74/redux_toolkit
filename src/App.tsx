@@ -9,10 +9,11 @@ import { useAppSelector } from "./redux/hooks";
 const App = () => {
   return (
     <Provider store={store}>
+      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/product/:id" element={<Product />} />
+          <Route path="/product" element={<Product />} />
         </Routes>
       </BrowserRouter>
     </Provider>

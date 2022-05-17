@@ -1,15 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
+import getProductId from "./reducers/getProduct";
 import cartSlice from "./reducers/cartSlice";
 
 // const rootReducer = combineReducers({
 //   product: cartSlice.reducer,
-//   getProduct: getProductsReducer.reducer,
+//   getProducts: getProductssReducer.reducer,
 // });
 
 export const store = configureStore({
   reducer: {
     product: cartSlice,
-    // getProduct: getProductsReducer.reducer,
+    getId: getProductId,
   },
 });
 

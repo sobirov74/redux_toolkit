@@ -1,10 +1,11 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Product } from "./types";
+import { url } from "./url";
 
-const url = "https://admin.ilenmed.uz/api/products";
+// const url1 = `https://admin.ilenmed.uz/api/products/${id}`;
 
-// export const getProduct = () => async (dispatch: AppDispatch) => {
+// export const getProducts = () => async (dispatch: AppDispatch) => {
 //   try {
 //     const resp = await axios.get<Product>(
 //       "https://admin.ilenmed.uz/api/products"
@@ -16,16 +17,16 @@ const url = "https://admin.ilenmed.uz/api/products";
 //   }
 // };
 
-export const getProduct = createAsyncThunk(
+const getProduct = createAsyncThunk(
   "products/fetchAll",
-  async (_, thunkAPI) => {
+  async (alias: any, thunkAPI) => {
     try {
-      const resp = await axios.get<Product[]>(url);
-
-      // dispatch(addItem(resp.data));
+      const resp = await axios.get(`${url}/${alias}`);
       return resp.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("error, cant get products");
+      return thunkAPI.rejectWithValue("error, product not found");
     }
   }
 );
+
+export default getProduct;

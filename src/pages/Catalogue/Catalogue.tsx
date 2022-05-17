@@ -1,19 +1,36 @@
 import { useAppDispatch } from "../../redux/hooks";
 import { useAppSelector } from "../../redux/hooks";
-import { getProduct } from "../../utils/product";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Product } from "../../utils/types";
 import { addItem } from "../../redux/reducers/cartSlice";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getAlias } from "../../redux/reducers/getProduct";
+import getProducts from "../../utils/getProducts";
+// import { getProductById } from "../../redux/reducers/getProduct";
 
 const Catalogue = () => {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [productId, setProductId] = useState<string | null>(null);
   const { data } = useAppSelector((state) => state.product);
+  const navigate = useNavigate();
+  // const { id } = useAppSelector((state) => state.getId);
 
   useEffect(() => {
-    dispatch(getProduct());
+    dispatch(getProducts());
   }, []);
+
+  const handleClick = (alias: string, product: Product) => {
+    setProductId(alias);
+    dispatch(getAlias(alias));
+    navigate("/product", {
+      state: alias,
+    });
+    // dispatch(getProductById(product));
+  };
+
+  console.log(data);
 
   const addElement = (product: Product) => {
     dispatch(addItem(product));
@@ -34,8 +51,16 @@ const Catalogue = () => {
               </div>
 
               <div className={styles.cardRight}>
-                <h3 className={styles.cardTitle}>
-                  <Link to={`/product/${product.id}`}>{product.name_ru}</Link>
+                <h3
+                  className={styles.cardTitle}
+                  onClick={() => handleClick(product.alias, product)}
+                >
+                  {/* <Link
+                    onClick={() => dispatch(getId(product.id))}
+                    to={`/product/${product.id}`}
+                  > */}
+                  {product.name_ru}
+                  {/* </Link> */}
                 </h3>
                 <button
                   className={styles.cardbtn}

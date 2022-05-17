@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import { getProduct } from "../../utils/product";
+import getProducts from "../../utils/getProducts";
 import { Product } from "../../utils/types";
 
 export type Cart = {
@@ -12,11 +12,8 @@ export type Cart = {
   alias: string;
 };
 
-// [{product, count , product_id}]
-
 type cartState = {
   cart: Cart[];
-  // count: number;
   error: string;
   loading: boolean;
   data: Product[];
@@ -25,7 +22,6 @@ type cartState = {
 
 const initialState: cartState = {
   cart: [],
-  // count: 1,
   error: "",
   loading: false,
   data: [],
@@ -38,6 +34,7 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<Product>) => {
       const newCart = [...state.cart];
+      console.log(action.payload);
 
       state.cart = newCart;
       const indexes = state.cart.map((a) => a.product_id);
@@ -82,19 +79,18 @@ const cartSlice = createSlice({
       state.cart = newCart;
     },
     removeItem: (state, action: PayloadAction<number>) => {
-      // const index = action.payload;
       state.cart = state.cart.filter((_, index) => index !== action.payload);
     },
   },
   extraReducers: {
-    [getProduct.fulfilled.type]: (state, action: PayloadAction<Product>) => {
+    [getProducts.fulfilled.type]: (state, action: PayloadAction<Product>) => {
       state.loading = false;
       state.data = action.payload.data;
     },
-    [getProduct.pending.type]: (state: cartState) => {
+    [getProducts.pending.type]: (state: cartState) => {
       state.loading = true;
     },
-    [getProduct.rejected.type]: (
+    [getProducts.rejected.type]: (
       state: cartState,
       action: PayloadAction<string>
     ) => {
@@ -103,19 +99,19 @@ const cartSlice = createSlice({
     },
   },
 });
-// export const getProductsReducer = createSlice({
-//   name: "getProduct",
+// export const getProductssReducer = createSlice({
+//   name: "getProducts",
 //   initialState,
 //   reducers: {
-//     [getProduct.fulfilled.type]: (state, action: PayloadAction<Product>) => {
+//     [getProducts.fulfilled.type]: (state, action: PayloadAction<Product>) => {
 //       state.loading = false;
 //       state.data = action.payload.data;
 //       console.log(action.payload.data);
 //     },
-//     [getProduct.pending.type]: (state: cartState) => {
+//     [getProducts.pending.type]: (state: cartState) => {
 //       state.loading = true;
 //     },
-//     [getProduct.rejected.type]: (
+//     [getProducts.rejected.type]: (
 //       state: cartState,
 //       action: PayloadAction<string>
 //     ) => {
