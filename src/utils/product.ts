@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Product } from "./types";
+
 const url = "https://admin.ilenmed.uz/api/products";
 
 // export const getProduct = () => async (dispatch: AppDispatch) => {
@@ -16,7 +17,7 @@ const url = "https://admin.ilenmed.uz/api/products";
 // };
 
 export const getProduct = createAsyncThunk(
-  "user/fetchAll",
+  "products/fetchAll",
   async (_, thunkAPI) => {
     try {
       const resp = await axios.get<Product[]>(url);

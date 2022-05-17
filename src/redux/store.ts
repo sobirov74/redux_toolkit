@@ -1,5 +1,5 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { cartSlice } from "./cartSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import cartSlice from "./reducers/cartSlice";
 
 // const rootReducer = combineReducers({
 //   product: cartSlice.reducer,
@@ -8,7 +8,7 @@ import { cartSlice } from "./cartSlice";
 
 export const store = configureStore({
   reducer: {
-    product: cartSlice.reducer,
+    product: cartSlice,
     // getProduct: getProductsReducer.reducer,
   },
 });
