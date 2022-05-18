@@ -2,7 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Product } from "./types";
 import { url } from "./url";
-import { useAppDispatch } from "./../redux/hooks";
+import { useEffect } from "react";
+import { useAppDispatch } from "../redux/hooks";
 import { get } from "../redux/reducers/cartReducer";
 
 const getProducts = createAsyncThunk(
@@ -10,9 +11,11 @@ const getProducts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const resp = await axios.get<Product>(url);
-      const dispatch = useAppDispatch();
-      console.log(resp.data);
-      dispatch(get(resp.data));
+
+      useEffect(() => {
+        const dispatch = useAppDispatch();
+        dispatch(get(resp.data));
+      }, []);
 
       return resp.data;
     } catch (error) {

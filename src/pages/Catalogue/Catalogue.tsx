@@ -14,11 +14,11 @@ import cartReducer from "../../redux/reducers/cartReducer";
 
 const Catalogue = () => {
   const dispatch = useAppDispatch();
-  const { data, cart } = useAppSelector((state) => state.cart);
+  const { data } = useAppSelector((state) => state.cart);
   // const navigate = useNavigate();
   // const { id } = useAppSelector((state) => state.getId);
   // console.log(id);
-  console.log(cart);
+  // console.log(cart);
 
   useEffect(() => {
     dispatch(getProducts());
