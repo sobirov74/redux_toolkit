@@ -1,12 +1,10 @@
-import Catalogue from "../Catalogue/Catalogue";
+import Catalogue from "../catalogue";
 
 const MainPage = () => {
   return (
-    <>
-      <main>
-        <Catalogue />
-      </main>
-    </>
+    <main>
+      <Catalogue />
+    </main>
   );
 };
 

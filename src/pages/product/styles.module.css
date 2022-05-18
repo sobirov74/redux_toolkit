@@ -1,0 +1,19 @@
+.cardbtn {
+  max-width: 191px !important;
+  margin-top: 36px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--secondary75h);
+  transition: 0.5s;
+  color: var(--neutral0);
+  width: 100%;
+  box-shadow: 0px 0px 15px rgba(235, 71, 71, 0.5);
+  border-radius: 20px;
+  height: 40px;
+}
+.cardbtn:hover {
+  background: var(--secondary75);
+}

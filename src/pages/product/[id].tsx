@@ -1,42 +1,57 @@
-import React, { useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addItem } from "../../redux/reducers/cartSlice";
 import getProduct from "../../utils/product";
-// import { getProductById } from "../../redux/reducers/getProduct";
+import { Product } from "../../utils/types";
+import styles from "./styles.module.css";
 
 interface Props {
   id: string;
 }
 
-const Product = () => {
-  const { data, cart } = useAppSelector((state) => state.product);
+const ProductComp = () => {
   const { item } = useAppSelector((state) => state.getId);
-  // const { item } = useAppSelector((state) => state.fetchProduct);
+  const { product } = useAppSelector((state) => state.prodByAlias);
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const param = useParams<string>();
   const alias = param.alias;
-
-  // const item = useAppSelector((state) => state.getId);
-  console.log(data);
-
-  // const params = location?.state as Props;
-
-  // const aliasP = {...item};
-
   useEffect(() => {
-    dispatch(getProduct(alias));
-    console.log("not found");
-  }, []);
+    if (!item.length) {
+      dispatch(getProduct(alias));
+    }
+  }, [alias, dispatch, item.length]);
+
+  const addElement = (product: Product) => {
+    dispatch(addItem(product));
+  };
+
+  const handleToggle = () => {
+    let toggle;
+    if (!item.length) {
+      return (toggle = product);
+    }
+    if (item.length) {
+      return (toggle = item);
+    }
+  };
+  const toggler: any = handleToggle();
 
   return (
     <div>
       <div>
-        {/* <p>{item[0]?.alias}</p>
-        <img src={`${item[0]?.img[0]}`} alt='' /> */}
+        <p>{toggler[0]?.alias}</p>
+        <img src={`${toggler[0]?.img[0]}`} alt="" />
+        <button
+          className={styles.cardbtn}
+          onClick={() => addElement(toggler[0]?.product)}
+        >
+          to basket
+        </button>
       </div>
     </div>
   );
 };
 
-export default Product;
+export default ProductComp;

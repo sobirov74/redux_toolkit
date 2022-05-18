@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import getProductId from "./reducers/getProduct";
-import cartSlice from "./reducers/cartSlice";
-import fetchProduct from "./reducers/fetchProduct";
-import cartReducer from "./reducers/cartReducer";
+import getId from "./reducers/findByAliasSlice";
+import cart from "./reducers/cartSlice";
+import products from "./reducers/allProductsSlice";
+import prodByAlias from "./reducers/productSlice";
+// import cartReducer from "./reducers/cartReducer";
 
 // const rootReducer = combineReducers({
 //   product: cartSlice.reducer,
@@ -11,10 +12,10 @@ import cartReducer from "./reducers/cartReducer";
 
 export const store = configureStore({
   reducer: {
-    product: cartSlice,
-    getId: getProductId,
-    fetchProduct,
-    cart: cartReducer,
+    products,
+    getId,
+    cart,
+    prodByAlias,
   },
 });
 

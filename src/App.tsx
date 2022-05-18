@@ -1,10 +1,9 @@
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Product from "./pages/product/[id]";
 import MainPage from "./pages/mainPage";
-import { useAppSelector } from "./redux/hooks";
 
 const App = () => {
   return (
@@ -12,8 +11,8 @@ const App = () => {
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/product/:alias' element={<Product />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/product/:alias" element={<Product />} />
         </Routes>
       </BrowserRouter>
     </Provider>
