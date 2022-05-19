@@ -4,7 +4,7 @@ import { Product } from "utils/types";
 
 type Cart = {
   product: Product;
-  product_id: number;
+  id: number;
   count: number;
   img: string[];
   alias: string;

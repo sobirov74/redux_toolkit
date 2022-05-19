@@ -1,13 +1,5 @@
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "utils/types";
-
-export type Cart = {
-  product: Product;
-  product_id: number;
-  count: number;
-  img: string[];
-  alias: string;
-};
+import { Cart, Product } from "utils/types";
 
 type cartState = {
   cart: Cart[];
@@ -15,6 +7,8 @@ type cartState = {
   loading: boolean;
   data: Product[];
   id: number;
+  status?: string;
+  products?: [];
 };
 
 const initialState: cartState = {
@@ -33,27 +27,27 @@ const cartSlice = createSlice({
       const newCart = [...state.cart];
 
       state.cart = newCart;
-      const indexes = state.cart.map((a) => a.product_id);
+      const indexes = state.cart.map((a) => a.id);
 
       const actualIndex = indexes.indexOf(action.payload.id);
 
       if (actualIndex === -1) {
         newCart.push({
           product: action.payload,
-          product_id: action.payload.id,
+          id: action.payload.id,
           count: 1,
-          img: action.payload.image,
+          image: action.payload.image,
           alias: action.payload.name_ru,
         });
 
         state.cart = newCart;
       } else {
         const index = action.payload.id;
-        const arrOfIndex = newCart.map((a) => a.product_id);
+        const arrOfIndex = newCart.map((a) => a.id);
         const actualIndex = arrOfIndex.indexOf(index);
         let currentProduct = current(newCart[actualIndex]);
 
-        let increment = currentProduct.count + 1;
+        let increment: number = currentProduct.count + 1;
         state.cart[actualIndex].count = increment;
       }
     },

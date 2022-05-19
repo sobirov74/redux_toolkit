@@ -9,14 +9,16 @@ const RenderCart = () => {
   if (cart?.length === 0) {
     return <span className={styles.descr}>cart is empty</span>;
   }
-  const incrementNumber = (i: number) => {
-    dispatch(increment(i));
-  };
+
+  const incrementNumber = (index: number) => () => dispatch(increment(index));
+
+  const removeElement = (index: number) => dispatch(removeItem(index));
+
   const decrementNumber = (i: number, count: number) => {
     if (count > 1) {
       dispatch(decrement(i));
     } else if (count <= 1) {
-      dispatch(removeItem(i));
+      removeElement(i);
     }
   };
 
@@ -26,28 +28,25 @@ const RenderCart = () => {
         return (
           <div className={styles.item} key={index}>
             <div className={styles.left}>
-              <img alt="" src={item.img[0]} width={80} height={80} />
+              <img alt="" src={item.image[0]} width={80} height={80} />
 
               <h3 className={styles.cartTitle}>{item.alias}</h3>
             </div>
             <div className={styles.counterBlock}>
               <button
                 className={styles.sign}
-                onClick={() => decrementNumber(index, item?.count)}
+                // onClick={() => decrementNumber(index, item?.count)}
               >
                 <img src="/icons/Minus.svg" alt="minus" />
               </button>
               <span className={styles.counter}>{item.count}</span>
-              <button
-                className={styles.sign}
-                onClick={() => incrementNumber(index)}
-              >
+              <button className={styles.sign} onClick={incrementNumber(index)}>
                 <img src="/icons/Plus.svg" alt="plus" />
               </button>
 
               <button
                 className={styles.delete}
-                onClick={() => dispatch(removeItem(index))}
+                onClick={() => removeElement(index)}
               >
                 <img src="/icons/trash.svg" alt="delete" />
               </button>

@@ -6,4 +6,16 @@ export interface Product {
   alias: string;
   count: number;
   id: number;
+  products?: [];
+  item: [];
 }
+
+export type Cart = {
+  product: Product;
+  id: number;
+  count: number;
+  image: string[];
+  alias: string;
+  name_ru?: string;
+  products?: [];
+};

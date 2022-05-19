@@ -2,7 +2,7 @@ import MainPage from "pages/mainPage";
 import Product from "pages/product";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-export const mainRoutes = () => {
+export const MainRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>

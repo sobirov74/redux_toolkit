@@ -1,12 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "utils/types";
-
-export type Cart = {
-  product: Product;
-  product_id: number;
-  img: string[];
-  alias: string;
-};
+import { Cart, Product } from "utils/types";
 
 type cartState = {
   item: Cart[];
@@ -14,6 +7,7 @@ type cartState = {
   loading: boolean;
   id: number;
   alias: string;
+  // products?: [];
   // img: string[];
 };
 
@@ -32,16 +26,18 @@ const getProductId = createSlice({
   reducers: {
     getProductByAlias: (state, action: PayloadAction<Product>) => {
       const newCart = state.item;
+      console.log(action.payload);
 
       newCart.push({
         product: action.payload,
-        product_id: action.payload.id,
-        img: action.payload.image,
+        id: action.payload.id,
+        image: action.payload.image,
         alias: action.payload.name_ru,
+        count: 0,
       });
       state.item = newCart;
 
-      //   const indexes = state.cart.map((a) => a.product_id);
+      //   const indexes = state.cart.map((a) => a.id);
       //   const actualIndex = indexes.indexOf(action.payload.id);
     },
     getAlias: (state, action: PayloadAction<string>) => {

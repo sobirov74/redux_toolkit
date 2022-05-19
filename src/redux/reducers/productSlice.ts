@@ -1,13 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import getProduct from "utils/product";
-import { Product } from "utils/types";
-
-export type Cart = {
-  product: Product;
-  product_id: number;
-  img: string[];
-  alias: string;
-};
+import { Cart, Product } from "utils/types";
 
 type cartState = {
   product: Cart[];
@@ -15,7 +8,8 @@ type cartState = {
   loading: boolean;
   id: number;
   alias: string;
-  img: string[];
+  image: string[];
+  // products: [];
 };
 
 const initialState: cartState = {
@@ -24,7 +18,8 @@ const initialState: cartState = {
   loading: false,
   id: 0,
   alias: "",
-  img: [],
+  image: [],
+  // products: [],
 };
 
 const fetchProduct = createSlice({
@@ -38,12 +33,12 @@ const fetchProduct = createSlice({
         (state = initialState, action: PayloadAction<Product>) => {
           state.loading = false;
           const newCart = [...state.product];
-          newCart.push({
-            product: action.payload.data,
-            product_id: action.payload.data.id,
-            img: action.payload.data.image,
-            alias: action.payload.data.name_ru,
-          });
+          // newCart.push({
+          //   product: action.payload.data,
+          //   id: action.payload.data.id,
+          //   image: action.payload.data.image,
+          //   alias: action.payload.data.name_ru,
+          // });
           state.product = newCart;
         }
       )
