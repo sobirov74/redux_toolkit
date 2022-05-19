@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../utils/types";
+import { Product } from "utils/types";
 
 export type Cart = {
   product: Product;
@@ -32,7 +32,6 @@ const getProductId = createSlice({
   reducers: {
     getProductByAlias: (state, action: PayloadAction<Product>) => {
       const newCart = state.item;
-      console.log(action.payload);
 
       newCart.push({
         product: action.payload,
@@ -41,7 +40,6 @@ const getProductId = createSlice({
         alias: action.payload.name_ru,
       });
       state.item = newCart;
-      console.log(newCart);
 
       //   const indexes = state.cart.map((a) => a.product_id);
       //   const actualIndex = indexes.indexOf(action.payload.id);

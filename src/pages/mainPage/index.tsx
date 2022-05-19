@@ -1,6 +1,8 @@
-import Catalogue from "../catalogue";
+import { FC } from "react";
+import Catalogue from "pages/catalogue";
 
-const MainPage = () => {
+interface Props {}
+const MainPage: FC<Props> = () => {
   return (
     <main>
       <Catalogue />

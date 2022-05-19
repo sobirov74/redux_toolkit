@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAppSelector } from "../../redux/hooks";
-import Cart from "../Cart";
+import { useAppSelector } from "redux/hooks";
+import Cart from "components/Cart";
 import styles from "./styles.module.css";
 
 const Header = () => {

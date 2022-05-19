@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/rules-of-hooks */
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import getProducts from "../../utils/getProducts";
-import { Product } from "../../utils/types";
-import { useAppSelector } from "../hooks";
+import { Product } from "utils/types";
 
 export type Cart = {
   product: Product;
@@ -35,7 +31,6 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<Product>) => {
       const newCart = [...state.cart];
-      console.log(state.cart);
 
       state.cart = newCart;
       const indexes = state.cart.map((a) => a.product_id);
@@ -57,7 +52,6 @@ const cartSlice = createSlice({
         const arrOfIndex = newCart.map((a) => a.product_id);
         const actualIndex = arrOfIndex.indexOf(index);
         let currentProduct = current(newCart[actualIndex]);
-        console.log(arrOfIndex);
 
         let increment = currentProduct.count + 1;
         state.cart[actualIndex].count = increment;

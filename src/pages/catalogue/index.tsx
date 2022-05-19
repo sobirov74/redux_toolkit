@@ -1,24 +1,26 @@
-import { useAppDispatch } from "../../redux/hooks";
-import { useAppSelector } from "../../redux/hooks";
-import { useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, useEffect } from "react";
+import { useAppDispatch } from "redux/hooks";
+import { useAppSelector } from "redux/hooks";
 import styles from "./styles.module.css";
-import { Product } from "../../utils/types";
-import { addItem } from "../../redux/reducers/cartSlice";
-import { getProductByAlias } from "../../redux/reducers/findByAliasSlice";
-import getProducts from "../../utils/getProducts";
+import { Product } from "utils/types";
+import { addItem } from "redux/reducers/cartSlice";
+import { getProductByAlias } from "redux/reducers/findByAliasSlice";
+import getProducts from "utils/getProducts";
 import { Link } from "react-router-dom";
 
-const Catalogue = () => {
+const Catalogue: FC = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+  }, []);
 
-  const addElement = (product: Product) => {
-    dispatch(addItem(product));
-  };
+  const addElement = (product: Product) => () => dispatch(addItem(product));
+
+  const getByAlias = (product: Product) => () =>
+    dispatch(getProductByAlias(product));
 
   return (
     <div>
@@ -33,7 +35,7 @@ const Catalogue = () => {
               <div className={styles.cardRight}>
                 <h3 className={styles.cardTitle}>
                   <Link
-                    onClick={() => dispatch(getProductByAlias(product))}
+                    onClick={getByAlias(product)}
                     to={`/product/${product.alias}`}
                   >
                     {product.name_ru}
@@ -41,7 +43,7 @@ const Catalogue = () => {
                 </h3>
                 <button
                   className={styles.cardbtn}
-                  onClick={() => addElement(product)}
+                  onClick={addElement(product)}
                 >
                   to basket
                 </button>
