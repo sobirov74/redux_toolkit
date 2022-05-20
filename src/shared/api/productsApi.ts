@@ -4,6 +4,6 @@ export const products = () => {
   return HttpClient.doGet("/products", {});
 };
 
-export const product = (alias: string) => {
-  return HttpClient.doGet(`/products/${alias}`, {});
+export const product = ({ query }: { query: string }) => {
+  return HttpClient.doGet(`/products/${query}`, {});
 };

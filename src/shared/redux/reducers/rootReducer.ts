@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import cart from "./cartReducer";
+import products from "./productsReducer";
 import product from "./productReducer";
+import getByAlias from "./findByAliasSlice";
+import cart from "./cartReducer";
 
 export const rootReducer = combineReducers({
-  cart,
+  products,
   product,
+  getByAlias,
+  cart,
 });

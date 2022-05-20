@@ -1,26 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect } from "react";
-import { useAppDispatch } from "redux/hooks";
-import { useAppSelector } from "redux/hooks";
 import styles from "./styles.module.css";
-import { Cart, Product } from "utils/types";
-import { addItem } from "redux/reducers/cartSlice";
-import { getProductByAlias } from "redux/reducers/findByAliasSlice";
-import getProducts from "utils/getProducts";
+import { Product } from "utils/types";
 import { Link } from "react-router-dom";
-import { cartSelector } from "shared/redux/reducers/cartReducer";
 import { cartAction } from "shared/redux/actions/cartAction";
+import { getProductByAlias } from "shared/redux/reducers/findByAliasSlice";
+import { useAppDispatch, useAppSelector } from "shared/utils/hooks";
+import { productsSelector } from "shared/redux/reducers/productsReducer";
+import { addItem } from "shared/redux/reducers/cartReducer";
 
 const Catalogue: FC = () => {
   const dispatch = useAppDispatch();
-  const { products } = useAppSelector(cartSelector);
-
-  // const { data } = useAppSelector((state) => state.products);
+  const { products } = useAppSelector(productsSelector);
+  console.log(products);
 
   useEffect(() => {
     dispatch(cartAction());
   }, []);
-  console.log(products);
 
   const addElement = (product: Product) => () => dispatch(addItem(product));
 
@@ -32,7 +28,7 @@ const Catalogue: FC = () => {
   return (
     <div>
       <div className={styles.cards}>
-        {products?.map((product: any) => {
+        {products?.map((product: any, index: number) => {
           return (
             <div className={styles.card} key={product.id}>
               <div className={styles.cardLeft}>
@@ -49,6 +45,7 @@ const Catalogue: FC = () => {
                   </div> */}
                   <Link
                     onClick={getByAlias(product)}
+                    // onClick={() => dispatch(getProductByAlias(product))}
                     to={`/product/${product.alias}`}
                   >
                     {product.name_ru}

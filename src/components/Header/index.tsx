@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useAppSelector } from "redux/hooks";
 import Cart from "components/Cart";
 import styles from "./styles.module.css";
+import { useAppSelector } from "shared/utils/hooks";
+import { cartSelector } from "shared/redux/reducers/cartReducer";
 
 const Header = () => {
   const [cartClose, $cartClose] = useState(false);
-  const { cart: items } = useAppSelector((state) => state.cart);
+  const { cart: items } = useAppSelector(cartSelector);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

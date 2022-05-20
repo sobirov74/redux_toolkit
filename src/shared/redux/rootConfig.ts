@@ -8,6 +8,7 @@ const persistConfig = {
   key: "hey",
   storage,
   // whitelist: ["auth", "main"],
+  // blacklist: ["cart", "getByAlias"],
 };
 
 const pReducer: any = persistReducer(persistConfig, rootReducer);

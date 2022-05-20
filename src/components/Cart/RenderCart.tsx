@@ -1,9 +1,14 @@
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { decrement, increment, removeItem } from "redux/reducers/cartSlice";
+import {
+  cartSelector,
+  decrement,
+  increment,
+  removeItem,
+} from "shared/redux/reducers/cartReducer";
+import { useAppDispatch, useAppSelector } from "shared/utils/hooks";
 import styles from "./styles.module.css";
 
 const RenderCart = () => {
-  const { cart } = useAppSelector((state) => state.cart);
+  const cart = useAppSelector(cartSelector);
   const dispatch = useAppDispatch();
 
   if (cart?.length === 0) {
@@ -21,10 +26,10 @@ const RenderCart = () => {
       removeElement(i);
     }
   };
-
+  return null;
   return (
     <div className={styles.cartList}>
-      {cart?.map((item, index: number) => {
+      {cart?.map((item: any, index: number) => {
         return (
           <div className={styles.item} key={index}>
             <div className={styles.left}>

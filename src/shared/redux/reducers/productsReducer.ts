@@ -4,11 +4,11 @@ import { StatusEnum } from "../types";
 
 const initialState = {
   status: StatusEnum.START,
-  product: {},
+  products: {},
   error: "",
 };
 export const slicer = createSlice({
-  name: "product",
+  name: "products",
   initialState,
   reducers: {
     start: (state) => {
@@ -17,7 +17,8 @@ export const slicer = createSlice({
     },
     success: (state, { payload }) => {
       state.status = StatusEnum.SUCCESS;
-      state.product = payload.data;
+      state.products = payload.data;
+      // console.log(payload.data);
     },
     error: (state, { payload }) => {
       state.status = StatusEnum.ERROR;
@@ -26,6 +27,6 @@ export const slicer = createSlice({
   },
 });
 
-export const productSelector = (state: RootState) => state.product;
+export const productsSelector = (state: RootState) => state.cart;
 export default slicer.reducer;
 export const { start, success, error } = slicer.actions;

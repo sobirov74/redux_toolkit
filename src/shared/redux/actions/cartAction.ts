@@ -1,5 +1,5 @@
 import { products } from "../../api/productsApi";
-import { start, success, error } from "../reducers/cartReducer";
+import { start, success, error } from "../reducers/productsReducer";
 import { handleApi } from "../../utils/apiHandler";
 
 export const cartAction =
